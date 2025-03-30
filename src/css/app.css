@@ -1,0 +1,82 @@
+.headerInner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 75vh;
+    text-align: center;
+}
+
+.headerInner h1 {
+    font-size: 5rem;
+}
+
+.headerInner p {
+    font-size: 1.25rem;
+    margin-top: 2rem;
+}
+
+.headerButtons {
+    margin-top: 4rem;
+}
+
+.headerButtons button {
+    background-color: var(--black);
+    color: var(--white);
+    border: 1px solid #333;
+    border-radius: 5px;
+    width: 175px;
+    height: 45px;
+    margin: 0 7px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.headerButtons button:hover {
+    background-color: #121212;
+}
+
+.chroma-glow-button {
+    position: relative;
+}
+
+  .chroma-glow-button::before {
+    content: '';
+    position: absolute;
+    border-radius: 5px;
+    z-index: -1;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(
+      120deg,
+      #ff0000,
+      #ff9900,
+      #33cc33,
+      #0099ff,
+      #9900cc,
+      #ff3399,
+      #ff0000
+    );
+    background-size: 300% 300%;
+    animation: chromaGlow 5s linear infinite;
+    filter: blur(5px);
+  }
+  
+  @keyframes chromaGlow {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+      }
+  }
+  
+  
+  

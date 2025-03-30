@@ -1,0 +1,26 @@
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--fontTitle);
+}
+
+body {
+    font-family: var(--fontBody);
+    background-color: var(--black);
+    color: var(--white);
+}
+
+#wrapper {
+    width: 90%;
+    max-width: 1200px;
+}
+
+#siteHeader {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
