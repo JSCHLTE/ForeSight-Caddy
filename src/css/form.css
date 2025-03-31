@@ -34,3 +34,7 @@ label p {
     color: #999;
     font-style: italic;
 }
+
+.generationType {
+    text-align: center;
+}
