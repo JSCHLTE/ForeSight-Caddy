@@ -19,7 +19,7 @@ body {
     max-width: 1200px;
 }
 
-#siteHeader {
+#siteWrapper {
     width: 90%;
     max-width: 1200px;
     margin: 0 auto;
