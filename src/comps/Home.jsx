@@ -5,8 +5,8 @@ const Home = ({ photoMode, start }) => {
       <h1>The AI Golf Caddy</h1>
       <p>Built to help you play smarter, swing with confidence, and choose the right shot — every time.</p>
       <div className='headerButtons'>
-        <button className='chroma-glow-button' onClick={photoMode}>Take or Upload Photo</button>
-        <button onClick={start}>Describe Your Lie</button>
+        <button className='chroma-glow-button custom-btn' onClick={photoMode}>Take or Upload Photo</button>
+        <button onClick={start} className='custom-btn'>Describe Your Lie</button>
       </div>
     </div>
     <center><p>v0.01</p></center>

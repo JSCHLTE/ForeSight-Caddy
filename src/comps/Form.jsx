@@ -1,6 +1,11 @@
 const Form = ({ photoMode }) => {
   return (
-    <form>
+    <div>
+      <div className="formHeader">
+        <h1>Describe Your Shot</h1>
+        <p>The more detailed you are, the better advice you will recieve.</p>
+      </div>
+       <form>
         <label>
         Upload or Choose a Photo:
             <input
@@ -27,7 +32,8 @@ const Form = ({ photoMode }) => {
 
         <label>
         Wind:
-        <input type="text" placeholder="Left to right, light breeze"/>    
+        <input type="text" placeholder="Left to right, light breeze"/>
+        <p>Units are not needed just general information.</p>    
         </label>
 
         <label>
@@ -44,7 +50,9 @@ const Form = ({ photoMode }) => {
         Additional Notes:
         <input type="number" placeholder="Elevated green, uphill, flat"/>    
         </label>
+        <button className='chroma-glow-button custom-btn'>Send to Caddy</button>
     </form>
+    </div>
   )
 }
 

@@ -20,24 +20,6 @@
     margin-top: 4rem;
 }
 
-.headerButtons button {
-    background-color: var(--black);
-    color: var(--white);
-    border: 1px solid #333;
-    border-radius: 5px;
-    width: 175px;
-    height: 45px;
-    margin: 0 7px;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 1rem;
-    transition: all 0.2s ease;
-}
-
-.headerButtons button:hover {
-    background-color: #121212;
-}
-
 .chroma-glow-button {
     position: relative;
 }

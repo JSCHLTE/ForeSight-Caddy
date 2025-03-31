@@ -1,6 +1,7 @@
 import './css/variables.css';
 import './css/base.css';
 import './css/app.css';
+import './css/form.css'
 
 import Home from './comps/Home';
 import Form from './comps/Form';
