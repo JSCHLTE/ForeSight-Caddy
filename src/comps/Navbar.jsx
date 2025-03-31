@@ -10,7 +10,7 @@ const Navbar = () => {
             </div>
             <ul className='navLinks'>
                 <li><NavLink to='/'>Home</NavLink></li>
-                <li><NavLink to='/form'>Form</NavLink></li>
+                <li><NavLink to='/form'>Get Advice</NavLink></li>
             </ul>
             <div className='burger'>
                 <div className='line line1'></div>

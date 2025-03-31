@@ -1,14 +1,16 @@
 .formHeader {
-    margin: 50px auto;
+    margin: 50px auto 25px;
     text-align: center;
 }
 
 form {
     display: flex;
     flex-direction: column;
-    border: 1px solid var(--white);
     border-radius: 5px;
     padding: 1rem;
+    max-width: 800px;
+    width: 95%;
+    margin: 0 auto 50px;
 }
 
 label {

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 const Home = ({ photoMode, start }) => {
   return (
     <header id='siteHeader'>
@@ -5,11 +7,10 @@ const Home = ({ photoMode, start }) => {
       <h1>The AI Golf Caddy</h1>
       <p>Built to help you play smarter, swing with confidence, and choose the right shot — every time.</p>
       <div className='headerButtons'>
-        <button className='chroma-glow-button custom-btn' onClick={photoMode}>Take or Upload Photo</button>
-        <button onClick={start} className='custom-btn'>Describe Your Lie</button>
+        <Link to='/form'><button className='chroma-glow-button custom-btn' onClick={photoMode}>Take or Upload Photo</button></Link>
+        <Link to='/form'><button onClick={start} className='custom-btn'>Describe Your Lie</button></Link>
       </div>
     </div>
-    <center><p>v0.01</p></center>
   </header>
   )
 }
