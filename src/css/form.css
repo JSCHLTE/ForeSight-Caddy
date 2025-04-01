@@ -63,18 +63,55 @@ label p {
 .caddyLog {
     width: 100%;
     background-color: var(--black);
-    border: 1px solid var(--white);
+    border-top: 1px solid var(--white);
+    border-right: 1px solid var(--white);
+    border-left: 1px solid var(--white);
     position: fixed;
-    inset: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(100%);
+    height: 85vh;
     z-index: 1;
-    display: none;
-    overflow-y: scroll;
     padding-bottom: 5rem;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    max-width: 750px;
+    transition: 0.3s transform ease-in-out;
+    z-index: 5;
+}
+
+.caddyCards {
+    height: 100%;
+    overflow-y: scroll;
 }
 
 .show {
-    display: block !important;
+    transform: translateX(-50%) translateY(0);
 }
+
+.caddyLog::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .caddyLog::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .caddyLog::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 255, 0.3);
+    border-radius: 10px;
+    box-shadow: 0 0 6px rgba(0, 255, 255, 0.5);
+    transition: background 0.3s ease;
+  }
+  
+  .caddyLog::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 255, 255, 0.6);
+  }
+  
+  .caddyLog::-webkit-scrollbar-corner {
+    background: transparent;
+  }
 
 .caddyTitleBar {
     margin: 1rem;
@@ -111,10 +148,10 @@ label p {
 .caddyCard {
     width: 95%;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 1rem auto;
     border: 1px solid #333;
-    border-radius: 5px;
-    margin-bottom: 1rem;
+    border-radius: 15px;
+    background-color: #111;
 }
 
 .caddyCard h4 {
@@ -143,6 +180,14 @@ label p {
 
 .formButtons button {
     margin: 5px;
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 2;
+    overflow: hidden;
 }
 
 @media (max-width: 370px) {

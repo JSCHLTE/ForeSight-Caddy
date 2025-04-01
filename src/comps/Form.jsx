@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { use, useEffect, useState } from "react"
 
 const Form = () => {
 
@@ -13,8 +13,18 @@ const Form = () => {
     firmness: '',
     notes: ''
   })
-  const [caddyInfo, setCaddyInfo] = useState([]);
+  const [caddyInfo, setCaddyInfo] = useState(['dangerous', 'dangerous', 'dangerous', 'dangerous', 'dangerous', 'dangerous', 'dangerous', 'dangerous', 'dangerous', ]);
   const [caddyTab, setCaddyTab] = useState(false);
+  
+  const handleCaddyLog = (value) => {
+    setCaddyTab(value);
+  }
+
+  if(caddyTab) {
+    document.body.style.overflowY = `hidden`;
+  } else {
+    document.body.style.overflowY = `scroll`;
+  }
 
   useEffect(() => {
     console.log('save to LS eventually')
@@ -116,7 +126,10 @@ const Form = () => {
         <button className={`custom-btn ${photoMode ? `` : `chroma-glow-button`}`} onClick={() => setPhotoMode(false)}>Text Mode</button>
       </div>
 
+      <div className={caddyTab ? 'overlay' : ''} onClick={() => handleCaddyLog(false)}></div>
+
       <div className={`caddyLog ${caddyTab ? 'show' : ''}`}>
+        <div className="caddyTitleBarWrapper">
         <div className="caddyTitleBar">
           <h3>Caddy Log:</h3>
           <div className="closeCaddy" onClick={()=> setCaddyTab(false)}>
@@ -124,6 +137,8 @@ const Form = () => {
             <div className="x x2"></div>
           </div>
         </div>
+        </div>
+        <div className="caddyCards">
         {
           caddyInfo.length > 0 ? 
           caddyInfo.map((item, index) => (
@@ -137,6 +152,7 @@ const Form = () => {
           :
           <p className="nores">No responses found.</p>
         }
+        </div>
       </div>
 
        <form onSubmit={handleSubmit}>
@@ -193,7 +209,7 @@ const Form = () => {
         </label>
         <div className="formButtons">
         <button className='chroma-glow-button custom-btn' type="submit">Send to Caddy</button>
-        <button className='custom-btn' type="button"  onClick={()=> setCaddyTab(true)}>Caddy Log</button>
+        <button className='custom-btn' type="button"  onClick={()=> handleCaddyLog(true)}>Caddy Log</button>
         </div>
     </form>
     </div>
