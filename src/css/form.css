@@ -83,8 +83,6 @@ label p {
 .caddyCards {
     height: 100%;
     overflow-y: scroll;
-    display: flex;
-    flex-direction: column-reverse;
 }
 
 .show {
@@ -190,6 +188,22 @@ label p {
     background-color: rgba(0, 0, 0, 0.75);
     z-index: 2;
     overflow: hidden;
+}
+
+.closeWrapper {
+    display: flex;
+    align-items: center;
+}
+
+.clearBtn {
+    background-color: var(--black);
+    color: var(--white);
+    width: 75px;
+    height: 35px;
+    border: 1px solid var(--white);
+    border-radius: 15px;
+    cursor: pointer;
+    font-family: inherit;
 }
 
 @media (max-width: 370px) {

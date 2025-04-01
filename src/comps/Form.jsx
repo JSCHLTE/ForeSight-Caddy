@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 
 const Form = () => {
 
@@ -13,10 +13,11 @@ const Form = () => {
     firmness: '',
     notes: ''
   })
-  const [caddyInfo, setCaddyInfo] = useState(()=> {
-    const stored = localStorage.getItem('caddyCards');
-    return stored ? JSON.parse(stored) : []
-  });
+  // const [caddyInfo, setCaddyInfo] = useState(()=> {
+  //   const stored = localStorage.getItem('caddyCards');
+  //   return stored ? JSON.parse(stored) : []
+  // });
+  const [caddyInfo, setCaddyInfo] = useState(['fds', 'fasdf', 'fasdfsdf'])
   const [caddyTab, setCaddyTab] = useState(false);
   const [caddyBtn, setCaddyBtn] = useState(true);
 
@@ -61,12 +62,6 @@ const Form = () => {
           reader.onload = () => resolve(reader.result);
           reader.onerror = reject;
         });
-
-          console.log("photoMode:", photoMode);
-          console.log("formData.img:", formData.img);
-          console.log("img type:", typeof formData.img);
-          console.log("img instanceof Blob:", formData.img instanceof Blob);
-
 
           let imageURL = null;
           if (
@@ -136,9 +131,12 @@ const Form = () => {
         <div className="caddyTitleBarWrapper">
         <div className="caddyTitleBar">
           <h3>Caddy Log:</h3>
-          <div className="closeCaddy" onClick={()=> setCaddyTab(false)}>
-            <div className="x x1"></div>
-            <div className="x x2"></div>
+          <div className="closeWrapper">
+            <div className="closeCaddy" onClick={()=> setCaddyTab(false)}>
+              <div className="x x1"></div>
+              <div className="x x2"></div>
+            </div>
+            {caddyInfo.length > 0 ? <button className="clearBtn" onClick={()=> setCaddyInfo([])}>Clear</button> : ''}
           </div>
         </div>
         </div>
@@ -172,13 +170,13 @@ const Form = () => {
 
         <label>
         Distance (Yds):
-        <input type="number" placeholder="227, 150, 23" name="distance" onChange={handleChange} value={formData.distance} required/>
+        <input type="number" placeholder="227, 150, 23" name="distance" onChange={handleChange} value={formData.distance} required />
         <p>Reqruied. How far are you from the pin? Just the number in yards is perfect. Doesn't need to be exact. 🔭</p>  
         </label>
 
         <label>
         Lie Type:
-        <input type="text" placeholder="Fairway, rough, bunker, pine needles, plugged, etc." name="lie" onChange={handleChange} value={formData.lie} required={!photoMode}/>  
+        <input type="text" placeholder="Fairway, rough, bunker, pine needles, plugged, etc." name="lie" onChange={handleChange} value={formData.lie} required={!photoMode} />  
         <p>Where's the ball sitting? Fairway, rough, bunker, fringe, plugged, etc. 🏖️</p>  
         </label>
 
@@ -190,13 +188,13 @@ const Form = () => {
 
         <label>
         Wind:
-        <input type="text" placeholder="Left to right, light breeze" name="wind" onChange={handleChange} value={formData.wind} required={!photoMode}/>
+        <input type="text" placeholder="Left to right, light breeze" name="wind" onChange={handleChange} value={formData.wind}/>
         <p>Exact speeds are fine — but “right to left, pretty windy” works too. 😎</p>    
         </label>
 
         <label>
         Elevation:
-        <input type="text" placeholder="Uphill, downhill, elevated green, etc." name="elevation" onChange={handleChange} value={formData.elevation} required={!photoMode}/> 
+        <input type="text" placeholder="Uphill, downhill, elevated green, etc." name="elevation" onChange={handleChange} value={formData.elevation} /> 
         <p>Just tell us if it's uphill, downhill, elevated green, or mostly flat — no need for numbers. 🏔️</p>     
         </label>
 

@@ -1,0 +1,13 @@
+footer {
+    background-color: #121212;
+    padding: 1rem;
+    text-align: center;
+}
+
+footer a {
+    color: cornflowerblue;
+}
+
+footer a:hover {
+    text-decoration: none;
+}
