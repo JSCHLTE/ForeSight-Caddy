@@ -143,14 +143,14 @@ const Form = () => {
 
         <label>
         Distance (Yds):
-        <input type="number" placeholder="230 yards" name="distance" onChange={handleChange} value={formData.distance} required/>
+        <input type="text" placeholder="227 yards, 50ft, etc." name="distance" onChange={handleChange} value={formData.distance} required/>
         <p>Reqruied. How far are you from the pin? Just the number in yards is perfect. Doesn't need to be exact. 🔭</p>  
         </label>
 
         <label>
         Lie Type:
-        <input type="text" placeholder="Fairway, rough, bunker, pine needles, etc." name="lie" onChange={handleChange} value={formData.lie} required={!photoMode}/>  
-        <p>Where's the ball sitting? Fairway, rough, bunker, fringe, etc. 🏖️</p>  
+        <input type="text" placeholder="Fairway, rough, bunker, pine needles, plugged, etc." name="lie" onChange={handleChange} value={formData.lie} required={!photoMode}/>  
+        <p>Where's the ball sitting? Fairway, rough, bunker, fringe, plugged, etc. 🏖️</p>  
         </label>
 
         <label>
@@ -167,19 +167,19 @@ const Form = () => {
 
         <label>
         Elevation:
-        <input type="text" placeholder="Elevated green, uphill, flat" name="elevation" onChange={handleChange} value={formData.elevation} required={!photoMode}/> 
-        <p>Just tell us if it's uphill, downhill, or mostly flat — no need for numbers. 🏔️</p>     
+        <input type="text" placeholder="Uphill, downhill, elevated green, etc." name="elevation" onChange={handleChange} value={formData.elevation} required={!photoMode}/> 
+        <p>Just tell us if it's uphill, downhill, elevated green, or mostly flat — no need for numbers. 🏔️</p>     
         </label>
 
         <label>
         Course Firmness:
-        <input type="text" placeholder="Elevated green, uphill, flat" name="firmness" onChange={handleChange} value={formData.firmness} />
+        <input type="text" placeholder="Soft or firm" name="firmness" onChange={handleChange} value={formData.firmness} />
         <p>Optional. Only mention if the fairways or greens feel really soft or firm. 🏌️</p>      
         </label>
 
         <label>
         Additional Notes:
-        <input type="text" placeholder="Elevated green, uphill, flat" name="notes" onChange={handleChange} value={formData.notes}/>
+        <input type="text" placeholder="Beginner, club distance, tucked pin, water short" name="notes" onChange={handleChange} value={formData.notes}/>
         <p>Optional. Anything the caddy should know that isn't covered above — e.g. tucked pin, water short, ball above feet. 📝</p>    
         </label>
         <div className="formButtons">
