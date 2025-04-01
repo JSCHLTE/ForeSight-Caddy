@@ -48,6 +48,7 @@ export default async function handler(req, res) {
       });
     }
 
+    console.log("Image Mode GPT Response:", JSON.stringify(completion, null, 2));
     const reply = completion.choices[0].message.content;
     return res.status(200).json({ reply });
   } catch (error) {
