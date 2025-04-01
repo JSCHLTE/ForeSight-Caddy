@@ -142,8 +142,8 @@ const Form = () => {
         </label> : ''}
 
         <label>
-        Distance (Yds/Ft):
-        <input type="text" placeholder="227 yards, 50ft, etc." name="distance" onChange={handleChange} value={formData.distance} required/>
+        Distance (Yds):
+        <input type="number" placeholder="227, 150, 23" name="distance" onChange={handleChange} value={formData.distance} required/>
         <p>Reqruied. How far are you from the pin? Just the number in yards is perfect. Doesn't need to be exact. 🔭</p>  
         </label>
 
