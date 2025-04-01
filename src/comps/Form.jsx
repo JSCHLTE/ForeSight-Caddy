@@ -34,8 +34,6 @@ const Form = () => {
 
     e.preventDefault();
 
-    let imageURL;
-
       const toBase64 = (file) =>
         new Promise((resolve, reject) => {
           const reader = new FileReader();
@@ -50,6 +48,7 @@ const Form = () => {
           console.log("img instanceof Blob:", formData.img instanceof Blob);
 
 
+          let imageURL = null;
           if (
             photoMode &&
             formData.img &&
@@ -57,9 +56,8 @@ const Form = () => {
             formData.img instanceof Blob
           ) {
             imageURL = await toBase64(formData.img);
-          } else {
-            imageURL = null; // just for clarity
           }
+          
           
 
     const prompt = `
@@ -85,7 +83,7 @@ const Form = () => {
     const res = await fetch("/api/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt: { prompt, imageMode, imageURL } }),
+      body: JSON.stringify({ prompt, imageMode, imageURL }),
     });
     
     const data = await res.json();
