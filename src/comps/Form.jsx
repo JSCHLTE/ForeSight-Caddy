@@ -98,6 +98,13 @@ const Form = () => {
     setCaddyTab(true);
   }
 
+  const formatCaddyResponse = (text) => {
+    return text
+      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+      .replace(/\n/g, "<br />");
+  };
+  
+
   return (
     <div>
       <div className="formHeader">
@@ -122,8 +129,10 @@ const Form = () => {
           caddyInfo.map((item, index) => (
             <div key={index} className="caddyCard">
               <h4>{`Caddy Response: ${index + 1}`}</h4>
-              <pre>{item}</pre>
-            </div>
+              <div
+                className="formattedCaddyText"
+                dangerouslySetInnerHTML={{ __html: formatCaddyResponse(item) }}
+              /></div>
           ))
           :
           <p className="nores">No responses found.</p>
