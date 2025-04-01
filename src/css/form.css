@@ -38,3 +38,77 @@ label p {
 .generationType {
     text-align: center;
 }
+
+.logsButton {
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+}
+
+.caddyLog {
+    width: 90%;
+    background-color: var(--black);
+    border: 1px solid var(--white);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-45%);
+    height: 80vh;
+    z-index: 1;
+    display: none;
+}
+
+.show {
+    display: block !important;
+}
+
+.caddyTitleBar {
+    margin: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.closeCaddy {
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.x {
+    width: 30px;
+    height: 2px;
+    background-color: var(--white);
+  }
+  
+  .x1 {
+    transform: rotate(45deg);
+  }
+  
+  .x2 {
+    transform: rotate(-45deg) translateY(-2px) translateX(1px);
+  }
+  
+
+.caddyCard {
+    width: 95%;
+    margin: 0 auto;
+    border: 1px solid #333;
+    border-radius: 5px;
+}
+
+.caddyCard h4 {
+    margin: 1rem;
+}
+
+.caddyCard p {
+    margin: 1rem;
+}
+
+.nores {
+    margin: 1rem;
+}

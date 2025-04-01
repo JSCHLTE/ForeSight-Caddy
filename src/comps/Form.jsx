@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const Form = () => {
 
@@ -13,6 +13,12 @@ const Form = () => {
     firmness: '',
     notes: ''
   })
+  const [caddyInfo, setCaddyInfo] = useState([]);
+  const [caddyTab, setCaddyTab] = useState(false);
+
+  useEffect(() => {
+    console.log('save to LS eventually')
+  }, [caddyInfo]);
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -88,7 +94,8 @@ const Form = () => {
     
     const data = await res.json();
     console.log("AI Reply:", data.reply);
-    
+    setCaddyInfo(prevInfo => ([...prevInfo, data.reply]));
+    setCaddyTab(true);
   }
 
   return (
@@ -97,10 +104,30 @@ const Form = () => {
         <h1>Describe Your Shot</h1>
         <p>Most fields are optional besides yardage — but the more details you give, the better your caddy’s advice will be. <i>Please note: this app is built for full swings, punch shots, and short-game situations. Putting responses may be generic and aren’t fully supported.</i></p>
       </div>
-
       <div className="generationType">
         <button className={`custom-btn ${photoMode ? `chroma-glow-button` : ``}`} onClick={() => setPhotoMode(true)}>Photo Mode</button>
         <button className={`custom-btn ${photoMode ? `` : `chroma-glow-button`}`} onClick={() => setPhotoMode(false)}>Text Mode</button>
+      </div>
+
+      <div className={`caddyLog ${caddyTab ? 'show' : ''}`}>
+        <div className="caddyTitleBar">
+          <h3>Caddy Log:</h3>
+          <div className="closeCaddy" onClick={()=> setCaddyTab(false)}>
+            <div className="x x1"></div>
+            <div className="x x2"></div>
+          </div>
+        </div>
+        {
+          caddyInfo.length > 0 ? 
+          caddyInfo.map((item, index) => (
+            <div key={index} className="caddyCard">
+              <h4>{`Caddy Response: ${index + 1}`}</h4>
+              <p>{item}</p>
+            </div>
+          ))
+          :
+          <p className="nores">No responses found.</p>
+        }
       </div>
 
        <form onSubmit={handleSubmit}>
@@ -155,7 +182,10 @@ const Form = () => {
         <input type="text" placeholder="Elevated green, uphill, flat" name="notes" onChange={handleChange} value={formData.notes}/>
         <p>Optional. Anything the caddy should know that isn't covered above — e.g. tucked pin, water short, ball above feet. 📝</p>    
         </label>
-        <button className='chroma-glow-button custom-btn'>Send to Caddy</button>
+        <div className="formButtons">
+        <button className='chroma-glow-button custom-btn' type="submit">Send to Caddy</button>
+        <button className='custom-btn' type="button"  onClick={()=> setCaddyTab(true)}>Caddy Log</button>
+        </div>
     </form>
     </div>
   )
