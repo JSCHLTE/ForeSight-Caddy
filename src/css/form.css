@@ -138,6 +138,7 @@ label p {
     text-align: center;
     margin: 2rem 0;
     display: flex;
+    font-weight: normal !important;
 }
 
 .formButtons button {
