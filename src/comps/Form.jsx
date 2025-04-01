@@ -35,7 +35,9 @@ const Form = ({ handlePhotoMode }) => {
   }
   
 
-  async function handleSubmit() {
+  async function handleSubmit(e) {
+
+    e.preventDefault();
 
     const toBase64 = (file) =>
       new Promise((resolve, reject) => {
