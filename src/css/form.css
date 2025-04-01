@@ -83,6 +83,8 @@ label p {
 .caddyCards {
     height: 100%;
     overflow-y: scroll;
+    display: flex;
+    flex-direction: column-reverse;
 }
 
 .show {

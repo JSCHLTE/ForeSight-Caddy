@@ -147,7 +147,7 @@ const Form = () => {
           caddyInfo.length > 0 ? 
           caddyInfo.map((item, index) => (
             <div key={index} className="caddyCard">
-              <h4>{`Caddy Response: ${caddyInfo.length}`}</h4>
+              <h4>{`Caddy Response: ${index + 1}`}</h4>
               <div
                 className="formattedCaddyText"
                 dangerouslySetInnerHTML={{ __html: formatCaddyResponse(item) }}
