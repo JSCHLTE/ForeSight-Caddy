@@ -29,7 +29,7 @@ const Form = () => {
   }
 
   if(caddyTab) {
-    document.body.style.overflowY = `hidden`;
+    document.body.style.overflow = `hidden`;
   } else {
     document.body.style.overflowY = `scroll`;
   }
@@ -107,7 +107,7 @@ const Form = () => {
     });
     
     const data = await res.json();
-    setCaddyInfo(prevInfo => ([data.reply, ...prevInfo]));
+    setCaddyInfo(prevInfo => ([...prevInfo, data.reply]));
     setCaddyTab(true);
     setCaddyBtn(true);
   }
