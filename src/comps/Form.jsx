@@ -47,7 +47,24 @@ const Form = ({ handlePhotoMode }) => {
     
     const imageURL = await toBase64(formData.img);
 
-    const prompt = ''
+    const prompt = `
+    You're a professional golf caddy helping a player choose the best shot for their current situation. Consider all relevant conditions like distance, wind, lie, elevation, and firmness. Be specific, smart, and think like a real caddy would during a round.
+    
+    Shot Details:
+    - Distance to the pin: ${formData.distance || "Not specified"}
+    - Wind: ${formData.wind || "No wind mentioned"}
+    - Elevation change: ${formData.elevation || "No elevation info"}
+    - Lie: ${formData.lie || "Unclear from the image"}
+    - Ground firmness: ${formData.firmness || "Normal conditions"}
+    - Obstacles: ${formData.obstacles || "None mentioned"}
+    - Additional notes: ${formData.notes || "None"}
+    
+    Respond with:
+    1. The recommended club
+    2. Suggested shot shape or trajectory (e.g., high draw, low fade, punch, etc.)
+    3. A short, helpful tip or piece of advice — as if you're standing on the course with the player
+    `;    
+
     const imageMode = photoMode
 
     const res = await fetch("/api/generate", {
