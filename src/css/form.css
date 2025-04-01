@@ -136,9 +136,18 @@ label p {
 
 .formButtons {
     text-align: center;
-    margin: 1rem 0;
+    margin: 2rem 0;
+    display: flex;
 }
 
 .formButtons button {
     margin: 5px;
+}
+
+@media (max-width: 370px) {
+    .formButtons {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 }
