@@ -99,14 +99,16 @@ label p {
     margin: 0 auto;
     border: 1px solid #333;
     border-radius: 5px;
+    margin-bottom: 1rem;
 }
 
 .caddyCard h4 {
     margin: 1rem;
 }
 
-.caddyCard p {
+.caddyCard pre {
     margin: 1rem;
+    font-family: inherit;
 }
 
 .nores {

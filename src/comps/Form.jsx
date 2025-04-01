@@ -13,7 +13,7 @@ const Form = () => {
     firmness: '',
     notes: ''
   })
-  const [caddyInfo, setCaddyInfo] = useState([]);
+  const [caddyInfo, setCaddyInfo] = useState(['this', 'and this']);
   const [caddyTab, setCaddyTab] = useState(false);
 
   useEffect(() => {
@@ -122,7 +122,7 @@ const Form = () => {
           caddyInfo.map((item, index) => (
             <div key={index} className="caddyCard">
               <h4>{`Caddy Response: ${index + 1}`}</h4>
-              <p>{item}</p>
+              <pre>{item}</pre>
             </div>
           ))
           :
