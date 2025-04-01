@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-const Form = ({ handlePhotoMode }) => {
+const Form = () => {
 
   const [photoMode, setPhotoMode] = useState(true);
   const [formData, setFormData] = useState({
@@ -30,24 +30,23 @@ const Form = ({ handlePhotoMode }) => {
     }
   }
 
-  const handleMode = (mode) => {
-    mode ? setPhotoMode(true) : setPhotoMode(false)
-  }
-  
-
   async function handleSubmit(e) {
 
     e.preventDefault();
 
-    const toBase64 = (file) =>
-      new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = reject;
-      });
-    
-    const imageURL = await toBase64(formData.img);
+    let imageURL;
+
+      const toBase64 = (file) =>
+        new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = reject;
+        });
+
+        if(photoMode && formData.img) {
+          imageURL = await toBase64(formData.img);
+        }
 
     const prompt = `
     You're a professional golf caddy helping a player choose the best shot for their current situation. Consider all relevant conditions like distance, wind, lie, elevation, and firmness. Be specific, smart, and think like a real caddy would during a round.
