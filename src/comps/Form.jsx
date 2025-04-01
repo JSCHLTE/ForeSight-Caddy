@@ -127,17 +127,17 @@ const Form = ({ handlePhotoMode }) => {
 
         <label>
         Elevation:
-        <input type="number" placeholder="Elevated green, uphill, flat" name="elevation" onChange={handleChange} value={formData.elevation}/>    
+        <input type="text" placeholder="Elevated green, uphill, flat" name="elevation" onChange={handleChange} value={formData.elevation}/>    
         </label>
 
         <label>
         Course Firmness:
-        <input type="number" placeholder="Elevated green, uphill, flat" name="firmness" onChange={handleChange} value={formData.firmness}/>    
+        <input type="text" placeholder="Elevated green, uphill, flat" name="firmness" onChange={handleChange} value={formData.firmness}/>    
         </label>
 
         <label>
         Additional Notes:
-        <input type="number" placeholder="Elevated green, uphill, flat" name="notes" onChange={handleChange} value={formData.notes}/>    
+        <input type="text" placeholder="Elevated green, uphill, flat" name="notes" onChange={handleChange} value={formData.notes}/>    
         </label>
         <button className='chroma-glow-button custom-btn'>Send to Caddy</button>
     </form>
