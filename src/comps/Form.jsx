@@ -88,7 +88,9 @@ const Form = () => {
     
       Respond with:
       1. The recommended club
+
       2. Suggested shot shape or trajectory (e.g., high draw, low fade, punch, etc.)
+
       3. A short, guided tip — including how to set up, where to position the ball, swing thoughts, and any key advice to execute the shot properly, as if you're standing beside the player on the course.
     `;    
 
@@ -131,11 +133,11 @@ const Form = () => {
         <div className="caddyTitleBar">
           <h3>Caddy Log:</h3>
           <div className="closeWrapper">
+          {caddyInfo.length > 0 ? <button className="clearBtn" onClick={()=> setCaddyInfo([])}>Clear</button> : ''}
             <div className="closeCaddy" onClick={()=> setCaddyTab(false)}>
               <div className="x x1"></div>
               <div className="x x2"></div>
             </div>
-            {caddyInfo.length > 0 ? <button className="clearBtn" onClick={()=> setCaddyInfo([])}>Clear</button> : ''}
           </div>
         </div>
         </div>
