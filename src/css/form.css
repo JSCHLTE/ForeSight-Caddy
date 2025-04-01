@@ -121,8 +121,8 @@ label p {
     margin: 1rem;
 }
 
-.caddyCard pre {
-    margin: 1rem;
+.formattedCaddyText {
+    padding: 1rem;
     font-family: inherit;
     white-space: pre-wrap; 
     word-wrap: break-word;
