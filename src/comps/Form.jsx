@@ -33,6 +33,33 @@ const Form = ({ handlePhotoMode }) => {
   const handleMode = (mode) => {
     mode ? setPhotoMode(true) : setPhotoMode(false)
   }
+  
+
+  async function handleSubmit() {
+
+    const toBase64 = (file) =>
+      new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+      });
+    
+    const imageURL = await toBase64(formData.img);
+
+    const prompt = ''
+    const imageMode = photoMode
+
+    const res = await fetch("/api/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt: { prompt, imageMode, imageURL } }),
+    });
+    
+    const data = await res.json();
+    console.log("AI Reply:", data.reply);
+    
+  }
 
   return (
     <div>
@@ -46,7 +73,7 @@ const Form = ({ handlePhotoMode }) => {
         <button className={`custom-btn ${photoMode ? `` : `chroma-glow-button`}`} onClick={() => setPhotoMode(false)}>Text Mode</button>
       </div>
 
-       <form>
+       <form onSubmit={handleSubmit}>
         {photoMode ?         <label>
         Upload or Choose a Photo:
             <input
