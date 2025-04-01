@@ -44,9 +44,23 @@ const Form = () => {
           reader.onerror = reject;
         });
 
-        if(photoMode && formData.img) {
-          imageURL = await toBase64(formData.img);
-        }
+          console.log("photoMode:", photoMode);
+          console.log("formData.img:", formData.img);
+          console.log("img type:", typeof formData.img);
+          console.log("img instanceof Blob:", formData.img instanceof Blob);
+
+
+          if (
+            photoMode &&
+            formData.img &&
+            typeof formData.img === "object" &&
+            formData.img instanceof Blob
+          ) {
+            imageURL = await toBase64(formData.img);
+          } else {
+            imageURL = null; // just for clarity
+          }
+          
 
     const prompt = `
     You're a professional golf caddy helping a player choose the best shot for their current situation. Consider all relevant conditions like distance, wind, lie, elevation, and firmness. Be specific, smart, and think like a real caddy would during a round.
