@@ -13,7 +13,7 @@ const Form = () => {
     firmness: '',
     notes: ''
   })
-  const [caddyInfo, setCaddyInfo] = useState(['this', 'and this']);
+  const [caddyInfo, setCaddyInfo] = useState([]);
   const [caddyTab, setCaddyTab] = useState(false);
 
   useEffect(() => {

@@ -46,16 +46,15 @@ label p {
 }
 
 .caddyLog {
-    width: 90%;
+    width: 100%;
     background-color: var(--black);
     border: 1px solid var(--white);
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-45%);
-    height: 80vh;
+    inset: 0;
     z-index: 1;
     display: none;
+    overflow-y: scroll;
+    padding-bottom: 5rem;
 }
 
 .show {
@@ -96,6 +95,7 @@ label p {
 
 .caddyCard {
     width: 95%;
+    max-width: 1200px;
     margin: 0 auto;
     border: 1px solid #333;
     border-radius: 5px;
@@ -109,6 +109,10 @@ label p {
 .caddyCard pre {
     margin: 1rem;
     font-family: inherit;
+    white-space: pre-wrap; 
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
 }
 
 .nores {
