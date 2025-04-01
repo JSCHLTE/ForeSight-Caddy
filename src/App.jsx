@@ -18,7 +18,7 @@ function App() {
     <Navbar />
     <Routes>
       <Route path='/' element={<Home />}/>
-      <Route path='/form' element={<Form />}/>
+      <Route path='/caddy' element={<Form />}/>
     </Routes>
     </>
   )
