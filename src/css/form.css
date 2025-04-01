@@ -75,7 +75,7 @@ label p {
     padding-bottom: 5rem;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    max-width: 750px;
+    max-width: 900px;
     transition: 0.3s transform ease-in-out;
     z-index: 5;
 }
@@ -89,27 +89,27 @@ label p {
     transform: translateX(-50%) translateY(0);
 }
 
-.caddyLog::-webkit-scrollbar {
+.caddyCards::-webkit-scrollbar {
     width: 6px;
     height: 6px;
   }
   
-  .caddyLog::-webkit-scrollbar-track {
+  .caddyCards::-webkit-scrollbar-track {
     background: transparent;
   }
   
-  .caddyLog::-webkit-scrollbar-thumb {
+  .caddyCards::-webkit-scrollbar-thumb {
     background: rgba(0, 255, 255, 0.3);
     border-radius: 10px;
     box-shadow: 0 0 6px rgba(0, 255, 255, 0.5);
     transition: background 0.3s ease;
   }
   
-  .caddyLog::-webkit-scrollbar-thumb:hover {
+  .caddyCards::-webkit-scrollbar-thumb:hover {
     background: rgba(0, 255, 255, 0.6);
   }
   
-  .caddyLog::-webkit-scrollbar-corner {
+  .caddyCards::-webkit-scrollbar-corner {
     background: transparent;
   }
 

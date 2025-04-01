@@ -13,9 +13,17 @@ const Form = () => {
     firmness: '',
     notes: ''
   })
-  const [caddyInfo, setCaddyInfo] = useState(['dangerous', 'dangerous', 'dangerous', 'dangerous', 'dangerous', 'dangerous', 'dangerous', 'dangerous', 'dangerous', ]);
+  const [caddyInfo, setCaddyInfo] = useState(()=> {
+    const stored = localStorage.getItem('caddyCards');
+    return stored ? JSON.parse(stored) : []
+  });
   const [caddyTab, setCaddyTab] = useState(false);
-  
+  const [caddyBtn, setCaddyBtn] = useState(true);
+
+  useEffect(() => {
+    localStorage.setItem('caddyCards', JSON.stringify(caddyInfo));
+  }, [caddyInfo]);
+
   const handleCaddyLog = (value) => {
     setCaddyTab(value);
   }
@@ -25,10 +33,6 @@ const Form = () => {
   } else {
     document.body.style.overflowY = `scroll`;
   }
-
-  useEffect(() => {
-    console.log('save to LS eventually')
-  }, [caddyInfo]);
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -49,7 +53,7 @@ const Form = () => {
   async function handleSubmit(e) {
 
     e.preventDefault();
-
+      setCaddyBtn(false);
       const toBase64 = (file) =>
         new Promise((resolve, reject) => {
           const reader = new FileReader();
@@ -77,7 +81,7 @@ const Form = () => {
           
 
     const prompt = `
-    You're a professional golf caddy helping a player choose the best shot for their current situation. Consider all relevant conditions like distance, wind, lie, elevation, and firmness. Be specific, smart, and think like a real caddy would during a round. The user may have sent a photo, in which case you should use visual context to fill in missing information like, lie, elevation or obstacles  
+    You're a professional golf caddy helping a player (never mention them as player, always say you) choose the best shot for their current situation. Consider all relevant conditions like distance, wind, lie, elevation, and firmness. Be specific, smart, and think like a real caddy would during a round. The user may have sent a photo, in which case you should use visual context to fill in missing information like, lie, elevation or obstacles  
     
     Shot Details:
     - Distance to the pin: ${formData.distance || "Not specified"}
@@ -103,9 +107,9 @@ const Form = () => {
     });
     
     const data = await res.json();
-    console.log("AI Reply:", data.reply);
-    setCaddyInfo(prevInfo => ([...prevInfo, data.reply]));
+    setCaddyInfo(prevInfo => ([data.reply, ...prevInfo]));
     setCaddyTab(true);
+    setCaddyBtn(true);
   }
 
   const formatCaddyResponse = (text) => {
@@ -208,7 +212,7 @@ const Form = () => {
         <p>Optional. Anything the caddy should know that isn't covered above — e.g. tucked pin, water short, ball above feet. 📝</p>    
         </label>
         <div className="formButtons">
-        <button className='chroma-glow-button custom-btn' type="submit">Send to Caddy</button>
+          {caddyBtn ? <button className='chroma-glow-button custom-btn' type="submit">Send to Caddy</button> : <button className='chroma-glow-button custom-btn' disabled>Getting Advice...</button>}
         <button className='custom-btn' type="button"  onClick={()=> handleCaddyLog(true)}>Caddy Log</button>
         </div>
     </form>
