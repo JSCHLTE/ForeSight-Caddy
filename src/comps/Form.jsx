@@ -61,7 +61,7 @@ const Form = () => {
           
 
     const prompt = `
-    You're a professional golf caddy helping a player choose the best shot for their current situation. Consider all relevant conditions like distance, wind, lie, elevation, and firmness. Be specific, smart, and think like a real caddy would during a round.
+    You're a professional golf caddy helping a player choose the best shot for their current situation. Consider all relevant conditions like distance, wind, lie, elevation, and firmness. Be specific, smart, and think like a real caddy would during a round. The user may have sent a photo, in which case you should use visual context to fill in missing information like, lie, elevation or obstacles  
     
     Shot Details:
     - Distance to the pin: ${formData.distance || "Not specified"}
@@ -72,10 +72,10 @@ const Form = () => {
     - Obstacles: ${formData.obstacles || "None mentioned"}
     - Additional notes: ${formData.notes || "None"}
     
-    Respond with:
-    1. The recommended club
-    2. Suggested shot shape or trajectory (e.g., high draw, low fade, punch, etc.)
-    3. A short, helpful tip or piece of advice — as if you're standing on the course with the player
+      Respond with:
+      1. The recommended club
+      2. Suggested shot shape or trajectory (e.g., high draw, low fade, punch, etc.)
+      3. A short, guided tip — including how to set up, where to position the ball, swing thoughts, and any key advice to execute the shot properly, as if you're standing beside the player on the course.
     `;    
 
     const imageMode = photoMode
@@ -95,7 +95,7 @@ const Form = () => {
     <div>
       <div className="formHeader">
         <h1>Describe Your Shot</h1>
-        <p>The more detailed you are, the better advice you will recieve.</p>
+        <p>Most fields are optional besides yardage — but the more details you give, the better your caddy’s advice will be. <i>Please note: this app is built for full swings, punch shots, and short-game situations. Putting responses may be generic and aren’t fully supported.</i></p>
       </div>
 
       <div className="generationType">
@@ -109,46 +109,51 @@ const Form = () => {
             <input
             type="file"
             accept="image/*"
-            capture="environment"
             name="img"
             onChange={handleChange}
-            />
+            required/>
         </label> : ''}
 
         <label>
         Distance (Yds):
-        <input type="number" placeholder="230 yards" name="distance" onChange={handleChange} value={formData.distance}/>    
+        <input type="number" placeholder="230 yards" name="distance" onChange={handleChange} value={formData.distance} required/>
+        <p>Reqruied. How far are you from the pin? Just the number in yards is perfect. Doesn't need to be exact. 🔭</p>  
         </label>
 
         <label>
         Lie Type:
-        <input type="text" placeholder="Fairway, rough, bunker, needles, fescue, etc" name="lie" onChange={handleChange} value={formData.lie}/>    
+        <input type="text" placeholder="Fairway, rough, bunker, pine needles, etc." name="lie" onChange={handleChange} value={formData.lie} required={!photoMode}/>  
+        <p>Where's the ball sitting? Fairway, rough, bunker, fringe, etc. 🏖️</p>  
         </label>
 
         <label>
         Obstacles:
-        <input type="text" placeholder="Tree, rock, water" name="obstacles" onChange={handleChange} value={formData.obstacles}/>    
+        <input type="text" placeholder="Trees, rocks, water, cart girl" name="obstacles" onChange={handleChange} value={formData.obstacles} />
+        <p>Optional. List any obstacles that could affect the shot. ⚠️</p>   
         </label>
 
         <label>
         Wind:
-        <input type="text" placeholder="Left to right, light breeze" name="wind" onChange={handleChange} value={formData.wind}/>
-        <p>Units are not needed just general information.</p>    
+        <input type="text" placeholder="Left to right, light breeze" name="wind" onChange={handleChange} value={formData.wind} required={!photoMode}/>
+        <p>Exact speeds are fine — but “right to left, pretty windy” works too. 😎</p>    
         </label>
 
         <label>
         Elevation:
-        <input type="text" placeholder="Elevated green, uphill, flat" name="elevation" onChange={handleChange} value={formData.elevation}/>    
+        <input type="text" placeholder="Elevated green, uphill, flat" name="elevation" onChange={handleChange} value={formData.elevation} required={!photoMode}/> 
+        <p>Just tell us if it's uphill, downhill, or mostly flat — no need for numbers. 🏔️</p>     
         </label>
 
         <label>
         Course Firmness:
-        <input type="text" placeholder="Elevated green, uphill, flat" name="firmness" onChange={handleChange} value={formData.firmness}/>    
+        <input type="text" placeholder="Elevated green, uphill, flat" name="firmness" onChange={handleChange} value={formData.firmness} />
+        <p>Optional. Only mention if the fairways or greens feel really soft or firm. 🏌️</p>      
         </label>
 
         <label>
         Additional Notes:
-        <input type="text" placeholder="Elevated green, uphill, flat" name="notes" onChange={handleChange} value={formData.notes}/>    
+        <input type="text" placeholder="Elevated green, uphill, flat" name="notes" onChange={handleChange} value={formData.notes}/>
+        <p>Optional. Anything the caddy should know that isn't covered above — e.g. tucked pin, water short, ball above feet. 📝</p>    
         </label>
         <button className='chroma-glow-button custom-btn'>Send to Caddy</button>
     </form>
