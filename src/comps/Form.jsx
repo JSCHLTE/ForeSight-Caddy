@@ -13,11 +13,10 @@ const Form = () => {
     firmness: '',
     notes: ''
   })
-  // const [caddyInfo, setCaddyInfo] = useState(()=> {
-  //   const stored = localStorage.getItem('caddyCards');
-  //   return stored ? JSON.parse(stored) : []
-  // });
-  const [caddyInfo, setCaddyInfo] = useState(['fds', 'fasdf', 'fasdfsdf'])
+  const [caddyInfo, setCaddyInfo] = useState(()=> {
+    const stored = localStorage.getItem('caddyCards');
+    return stored ? JSON.parse(stored) : []
+  });
   const [caddyTab, setCaddyTab] = useState(false);
   const [caddyBtn, setCaddyBtn] = useState(true);
 
