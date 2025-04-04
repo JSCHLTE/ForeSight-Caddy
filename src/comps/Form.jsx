@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 
 const Form = () => {
 
-  const [photoMode, setPhotoMode] = useState(true);
   const [formData, setFormData] = useState({
     img: '',
     distance: '',
@@ -19,6 +18,7 @@ const Form = () => {
   });
   const [caddyTab, setCaddyTab] = useState(false);
   const [caddyBtn, setCaddyBtn] = useState(true);
+  const [isVoiceMode, setIsVoiceMode] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('caddyCards', JSON.stringify(caddyInfo));
@@ -51,29 +51,21 @@ const Form = () => {
   }
 
   async function handleSubmit(e) {
-
     e.preventDefault();
-      setCaddyBtn(false);
-      const toBase64 = (file) =>
-        new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.readAsDataURL(file);
-          reader.onload = () => resolve(reader.result);
-          reader.onerror = reject;
-        });
+    setCaddyBtn(false);
+    const toBase64 = (file) =>
+      new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+      });
 
-          let imageURL = null;
-          if (
-            photoMode &&
-            formData.img &&
-            typeof formData.img === "object" &&
-            formData.img instanceof Blob
-          ) {
-            imageURL = await toBase64(formData.img);
-          }
-          
-          
-
+    let imageURL = null;
+    if (formData.img && typeof formData.img === "object" && formData.img instanceof Blob) {
+      imageURL = await toBase64(formData.img);
+    }
+    
     const prompt = `
     You're a professional golf caddy helping a player (never mention them as player, always say you) choose the best shot for their current situation. Consider all relevant conditions like distance, wind, lie, elevation, and firmness. Be specific, smart, and think like a real caddy would during a round. The user may have sent a photo, in which case you should use visual context to fill in missing information like, lie, elevation or obstacles  
     
@@ -94,12 +86,10 @@ const Form = () => {
       3. A short, guided tip — including how to set up, where to position the ball, swing thoughts, and any key advice to execute the shot properly, as if you're standing beside the player on the course.
     `;    
 
-    const imageMode = photoMode
-
     const res = await fetch("/api/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt, imageMode, imageURL }),
+      body: JSON.stringify({ prompt, imageURL }),
     });
     
     const data = await res.json();
@@ -119,11 +109,11 @@ const Form = () => {
     <div>
       <div className="formHeader">
         <h1>Describe Your Shot</h1>
-        <p>Most fields are optional besides yardage — but the more details you give, the better your caddy’s advice will be. <i>Please note: this app is built for full swings, punch shots, and short-game situations. Putting responses may be generic and aren’t fully supported.</i></p>
+        <p>Most fields are optional besides yardage — but the more details you give, the better your caddy's advice will be. <i>Please note: this app is built for full swings, punch shots, and short-game situations. Putting responses may be generic and aren't fully supported.</i></p>
       </div>
       <div className="generationType">
-        <button className={`custom-btn ${photoMode ? `chroma-glow-button` : ``}`} onClick={() => setPhotoMode(true)}>Photo Mode</button>
-        <button className={`custom-btn ${photoMode ? `` : `chroma-glow-button`}`} onClick={() => setPhotoMode(false)}>Text Mode</button>
+        <button className={`custom-btn ${!isVoiceMode ? 'chroma-glow-button' : ''}`} onClick={() => setIsVoiceMode(false)}>Photo/Text Mode</button>
+        <button className={`custom-btn ${isVoiceMode ? 'chroma-glow-button' : ''}`} onClick={() => setIsVoiceMode(true)}>Voice Mode</button>
       </div>
 
       <div className={caddyTab ? 'overlay' : ''} onClick={() => handleCaddyLog(false)}></div>
@@ -159,60 +149,78 @@ const Form = () => {
       </div>
 
        <form onSubmit={handleSubmit}>
-        {photoMode ?         <label>
-        Upload or Choose a Photo:
-            <input
-            type="file"
-            accept="image/*"
-            name="img"
-            onChange={handleChange}
-            required/>
-        </label> : ''}
+        {!isVoiceMode ? (
+          <>
+            <label>
+              Upload or Choose a Photo (Optional):
+              <input
+                type="file"
+                accept="image/*"
+                name="img"
+                onChange={handleChange}
+              />
+            </label>
 
-        <label>
-        Distance (Yds):
-        <input type="number" placeholder="227, 150, 23" name="distance" onChange={handleChange} value={formData.distance} required />
-        <p>Reqruied. How far are you from the pin? Just the number in yards is perfect. Doesn't need to be exact. 🔭</p>  
-        </label>
+            <label>
+              Distance (Yds):
+              <input type="number" placeholder="227, 150, 23" name="distance" onChange={handleChange} value={formData.distance} required />
+              <p>Required. How far are you from the pin? Just the number in yards is perfect. Doesn't need to be exact. 🔭</p>  
+            </label>
 
-        <label>
-        Lie Type:
-        <input type="text" placeholder="Fairway, rough, bunker, pine needles, plugged, etc." name="lie" onChange={handleChange} value={formData.lie} required={!photoMode} />  
-        <p>Where's the ball sitting? Fairway, rough, bunker, fringe, plugged, etc. 🏖️</p>  
-        </label>
+            <label>
+              Lie Type:
+              <input type="text" placeholder="Fairway, rough, bunker, pine needles, plugged, etc." name="lie" onChange={handleChange} value={formData.lie} required />  
+              <p>Where's the ball sitting? Fairway, rough, bunker, fringe, plugged, etc. 🏖️</p>  
+            </label>
 
-        <label>
-        Obstacles:
-        <input type="text" placeholder="Trees, rocks, water, cart girl" name="obstacles" onChange={handleChange} value={formData.obstacles} />
-        <p>Optional. List any obstacles that could affect the shot. ⚠️</p>   
-        </label>
+            <label>
+              Obstacles:
+              <input type="text" placeholder="Trees, rocks, water, cart girl" name="obstacles" onChange={handleChange} value={formData.obstacles} />
+              <p>Optional. List any obstacles that could affect the shot. ⚠️</p>   
+            </label>
 
-        <label>
-        Wind:
-        <input type="text" placeholder="Left to right, light breeze" name="wind" onChange={handleChange} value={formData.wind}/>
-        <p>Exact speeds are fine — but “right to left, pretty windy” works too. 😎</p>    
-        </label>
+            <label>
+              Wind:
+              <input type="text" placeholder="Left to right, light breeze" name="wind" onChange={handleChange} value={formData.wind}/>
+              <p>Exact speeds are fine — but "right to left, pretty windy" works too. 😎</p>    
+            </label>
 
-        <label>
-        Elevation:
-        <input type="text" placeholder="Uphill, downhill, elevated green, etc." name="elevation" onChange={handleChange} value={formData.elevation} /> 
-        <p>Just tell us if it's uphill, downhill, elevated green, or mostly flat — no need for numbers. 🏔️</p>     
-        </label>
+            <label>
+              Elevation:
+              <input type="text" placeholder="Uphill, downhill, elevated green, etc." name="elevation" onChange={handleChange} value={formData.elevation} /> 
+              <p>Just tell us if it's uphill, downhill, elevated green, or mostly flat — no need for numbers. 🏔️</p>     
+            </label>
 
-        <label>
-        Course Firmness:
-        <input type="text" placeholder="Soft or firm" name="firmness" onChange={handleChange} value={formData.firmness} />
-        <p>Optional. Only mention if the fairways or greens feel really soft or firm. 🏌️</p>      
-        </label>
+            <label>
+              Course Firmness:
+              <input type="text" placeholder="Soft or firm" name="firmness" onChange={handleChange} value={formData.firmness} />
+              <p>Optional. Only mention if the fairways or greens feel really soft or firm. 🏌️</p>      
+            </label>
 
-        <label>
-        Additional Notes:
-        <input type="text" placeholder="Beginner, club distance, tucked pin, water short" name="notes" onChange={handleChange} value={formData.notes}/>
-        <p>Optional. Anything the caddy should know that isn't covered above — e.g. tucked pin, water short, ball above feet. 📝</p>    
-        </label>
+            <label>
+              Additional Notes:
+              <input type="text" placeholder="Beginner, club distance, tucked pin, water short" name="notes" onChange={handleChange} value={formData.notes}/>
+              <p>Optional. Anything the caddy should know that isn't covered above — e.g. tucked pin, water short, ball above feet. 📝</p>    
+            </label>
+          </>
+        ) : (
+          <label>
+            Voice Input:
+            <textarea
+              placeholder="Use your keyboard's voice input to describe your shot situation here..."
+              name="notes"
+              onChange={handleChange}
+              value={formData.notes}
+              style={{ minHeight: '150px', width: '100%', padding: '10px' }}
+              required
+            />
+            <p>Tap here and use your keyboard's voice input to describe your shot. Include distance, lie, and any other relevant details. 🎤</p>
+          </label>
+        )}
+        
         <div className="formButtons">
           {caddyBtn ? <button className='chroma-glow-button custom-btn' type="submit">Send to Caddy</button> : <button className='chroma-glow-button custom-btn' disabled>Getting Advice...</button>}
-        <button className='custom-btn' type="button"  onClick={()=> handleCaddyLog(true)}>Caddy Log</button>
+          <button className='custom-btn' type="button" onClick={()=> handleCaddyLog(true)}>Caddy Log</button>
         </div>
     </form>
     </div>
