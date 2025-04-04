@@ -26,13 +26,25 @@ const Form = () => {
 
   const handleCaddyLog = (value) => {
     setCaddyTab(value);
+    if (!value) {
+      document.body.style.overflow = 'auto';
+      document.body.style.position = 'static';
+    }
   }
 
-  if(caddyTab) {
-    document.body.style.overflow = `hidden`;
-  } else {
-    document.body.style.overflowY = `scroll`;
-  }
+  useEffect(() => {
+    if(caddyTab) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'auto';
+      document.body.style.position = 'static';
+      document.body.style.width = 'auto';
+    };
+  }, [caddyTab]);
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -118,18 +130,34 @@ const Form = () => {
 
       <div className={caddyTab ? 'overlay' : ''} onClick={() => handleCaddyLog(false)}></div>
 
-      <div className={`caddyLog ${caddyTab ? 'show' : ''}`}>
+      <div className={`caddyLog ${caddyTab ? 'show' : ''}`} onClick={(e) => e.stopPropagation()}>
         <div className="caddyTitleBarWrapper">
-        <div className="caddyTitleBar">
-          <h3>Caddy Log:</h3>
-          <div className="closeWrapper">
-          {caddyInfo.length > 0 ? <button className="clearBtn" onClick={()=> setCaddyInfo([])}>Clear</button> : ''}
-            <div className="closeCaddy" onClick={()=> setCaddyTab(false)}>
-              <div className="x x1"></div>
-              <div className="x x2"></div>
+          <div className="caddyTitleBar">
+            <h3>Caddy Log:</h3>
+            <div className="closeWrapper">
+              {caddyInfo.length > 0 ? (
+                <button 
+                  className="clearBtn" 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setCaddyInfo([]);
+                  }}
+                >
+                  Clear
+                </button>
+              ) : ''}
+              <div 
+                className="closeCaddy" 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleCaddyLog(false);
+                }}
+              >
+                <div className="x x1"></div>
+                <div className="x x2"></div>
+              </div>
             </div>
           </div>
-        </div>
         </div>
         <div className="caddyCards">
         {

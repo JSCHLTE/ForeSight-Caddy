@@ -70,19 +70,23 @@ label p {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%) translateY(100%);
-    height: 100vh;
-    z-index: 1;
+    height: 100%;
+    max-height: -webkit-fill-available;
+    z-index: 999;
     padding-bottom: 5rem;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     max-width: 900px;
     transition: 0.3s transform ease-in-out;
-    z-index: 5;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
 }
 
 .caddyCards {
-    height: 100%;
-    overflow-y: scroll;
+    height: calc(100% - 70px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 20px;
 }
 
 .show {
@@ -120,6 +124,14 @@ label p {
     justify-content: space-between;
 }
 
+.caddyTitleBarWrapper {
+    position: sticky;
+    top: 0;
+    background-color: var(--black);
+    z-index: 1000;
+    border-bottom: 1px solid #333;
+}
+
 .closeCaddy {
     cursor: pointer;
     width: 50px;
@@ -128,6 +140,8 @@ label p {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 15px;
+    margin-left: 10px;
 }
 
 .x {
@@ -186,8 +200,9 @@ label p {
     position: fixed;
     inset: 0;
     background-color: rgba(0, 0, 0, 0.75);
-    z-index: 2;
+    z-index: 998;
     overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .closeWrapper {
@@ -211,5 +226,28 @@ label p {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .caddyLog {
+        height: 85vh;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+    }
+
+    .caddyTitleBar {
+        padding: 10px;
+        margin: 0.5rem;
+    }
+
+    .closeCaddy {
+        width: 44px;
+        height: 44px;
+    }
+
+    .clearBtn {
+        height: 44px;
+        min-width: 80px;
     }
 }
