@@ -108,6 +108,16 @@ const Form = () => {
     setCaddyInfo(prevInfo => ([data.reply, ...prevInfo]));
     setCaddyTab(true);
     setCaddyBtn(true);
+    setFormData({
+      img: '',
+      distance: '',
+      lie: '',
+      obstacles: '',
+      wind: '',
+      elevation: '',
+      firmness: '',
+      notes: ''
+    })
   }
 
   const formatCaddyResponse = (text) => {
