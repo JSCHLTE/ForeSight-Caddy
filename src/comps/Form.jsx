@@ -105,7 +105,7 @@ const Form = () => {
     });
     
     const data = await res.json();
-    setCaddyInfo(prevInfo => ([...prevInfo, data.reply]));
+    setCaddyInfo(prevInfo => ([data.reply, ...prevInfo]));
     setCaddyTab(true);
     setCaddyBtn(true);
   }
@@ -116,6 +116,9 @@ const Form = () => {
       .replace(/\n/g, "<br />");
   };
   
+  const getDisplayNumber = (index) => {
+    return caddyInfo.length - index;
+  };
 
   return (
     <div>
@@ -164,7 +167,7 @@ const Form = () => {
           caddyInfo.length > 0 ? 
           caddyInfo.map((item, index) => (
             <div key={index} className="caddyCard">
-              <h4>{`Caddy Response: ${index + 1}`}</h4>
+              <h4>{`Caddy Response: ${getDisplayNumber(index)}`}</h4>
               <div
                 className="formattedCaddyText"
                 dangerouslySetInnerHTML={{ __html: formatCaddyResponse(item) }}
