@@ -51,7 +51,7 @@ body {
   background-color: var(--black) !important;
 }
 
-  .chroma-glow-button::before {
+  .chroma-glow-button::before, .record-button::before {
     content: '';
     position: absolute;
     border-radius: 5px;
@@ -75,6 +75,10 @@ body {
     filter: blur(5px);
     transition: all 0.2s ease;
   }
+
+  .record-button::before {
+    border-radius: 50%;
+  }
   
   @keyframes chromaGlow {
     0% {
@@ -88,7 +92,7 @@ body {
       }
   }
 
-  .chroma-glow-button:hover::before {
+  .chroma-glow-button:hover::before, .record-button:hover::before {
     content: '';
     top: -4px;
     left: -4px;

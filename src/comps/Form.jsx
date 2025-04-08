@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import VoiceRecorder from "./VoiceRecorder"
 
 const Form = () => {
 
@@ -19,6 +20,7 @@ const Form = () => {
   const [caddyTab, setCaddyTab] = useState(false);
   const [caddyBtn, setCaddyBtn] = useState(true);
   const [isVoiceMode, setIsVoiceMode] = useState(false);
+  const [voiceTranscript, setVoiceTranscript] = useState('');
 
   useEffect(() => {
     localStorage.setItem('caddyCards', JSON.stringify(caddyInfo));
@@ -61,6 +63,14 @@ const Form = () => {
       }))
     }
   }
+
+  const handleVoiceTranscription = (transcript) => {
+    setVoiceTranscript(transcript);
+    setFormData(prevData => ({
+      ...prevData,
+      notes: transcript
+    }));
+  };
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -118,6 +128,7 @@ const Form = () => {
       firmness: '',
       notes: ''
     })
+    setVoiceTranscript('');
   }
 
   const formatCaddyResponse = (text) => {
@@ -245,18 +256,22 @@ const Form = () => {
             </label>
           </>
         ) : (
-          <label>
-            Voice Input:
-            <textarea
-              placeholder="Use your keyboard's voice input to describe your shot situation here..."
-              name="notes"
-              onChange={handleChange}
-              value={formData.notes}
-              style={{ minHeight: '150px', width: '100%', padding: '10px' }}
-              required
-            />
-            <p>Tap here and use your keyboard's voice input to describe your shot. Include distance, lie, and any other relevant details. 🎤</p>
-          </label>
+          <>
+            <VoiceRecorder onTranscriptionComplete={handleVoiceTranscription} />
+            
+            <label>
+              Voice Description:
+              <textarea
+                placeholder="Your voice description will appear here..."
+                name="notes"
+                onChange={handleChange}
+                value={formData.notes}
+                style={{ minHeight: '150px', width: '100%', padding: '10px' }}
+                required
+              />
+              <p>You can edit your transcript here. If your mobile browser doesn’t support this feature, try using your keyboard’s microphone input instead — it usually works much better 🎤</p>
+            </label>
+          </>
         )}
         
         <div className="formButtons">
