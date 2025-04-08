@@ -117,7 +117,7 @@ const VoiceRecorder = ({ onTranscriptionComplete }) => {
       
       {isIOS && (
         <div className="ios-notice">
-          <p>Note: On iOS, you may need to tap the microphone icon in your keyboard to enable voice input.</p>
+          <p>Note: On iOS, you'll need to grant microphone access for the app to work. If the button above doesn’t respond, just tap the text area below and use your keyboard’s microphone to start speaking.</p>
         </div>
       )}
       
