@@ -145,7 +145,6 @@ const Form = () => {
     <div>
       <div className="formHeader">
         <h1>Describe Your Shot</h1>
-        <p>Most fields are optional besides yardage — but the more details you give, the better your caddy's advice will be. <i>Please note: this app is built for full swings, punch shots, and short-game situations. Putting responses may be generic and aren't fully supported.</i></p>
       </div>
       <div className="generationType">
         <button className={`custom-btn ${isVoiceMode ? 'chroma-glow-button' : ''}`} onClick={() => setIsVoiceMode(true)}>Voice Mode</button>
@@ -203,6 +202,7 @@ const Form = () => {
        <form onSubmit={handleSubmit}>
         {!isVoiceMode ? (
           <>
+            <p className="form-p">All fields are optional besides yardage — but the more details you give, the better your caddy's advice will be. <i>Please note: this app is built for full swings, punch shots, and short-game situations. Putting responses may be generic and aren't fully supported.</i></p>
             <label>
               Upload or Choose a Photo (Optional):
               <input

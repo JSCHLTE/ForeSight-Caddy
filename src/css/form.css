@@ -45,6 +45,11 @@ label p {
     font-style: italic;
 }
 
+.form-p {
+  margin: 25px 0;
+  text-align: center;
+}
+
 .generationType {
     text-align: center;
     margin-bottom: 10px;
