@@ -20,7 +20,6 @@ const Form = () => {
   const [caddyTab, setCaddyTab] = useState(false);
   const [caddyBtn, setCaddyBtn] = useState(true);
   const [isVoiceMode, setIsVoiceMode] = useState(true);
-  const [voiceTranscript, setVoiceTranscript] = useState('');
 
   useEffect(() => {
     localStorage.setItem('caddyCards', JSON.stringify(caddyInfo));
@@ -65,7 +64,6 @@ const Form = () => {
   }
 
   const handleVoiceTranscription = (transcript) => {
-    setVoiceTranscript(transcript);
     setFormData(prevData => ({
       ...prevData,
       notes: transcript
@@ -128,7 +126,6 @@ const Form = () => {
       firmness: '',
       notes: ''
     })
-    setVoiceTranscript('');
   }
 
   const formatCaddyResponse = (text) => {
@@ -145,6 +142,7 @@ const Form = () => {
     <div>
       <div className="formHeader">
         <h1>Describe Your Shot</h1>
+        <p>Tell me about your lie, wind conditions, obstacles, and course firmness. The more details you provide, the better advice I can give you.</p>
       </div>
       <div className="generationType">
         <button className={`custom-btn ${isVoiceMode ? 'chroma-glow-button' : ''}`} onClick={() => setIsVoiceMode(true)}>Voice Mode</button>
@@ -269,7 +267,7 @@ const Form = () => {
                 style={{ minHeight: '150px', width: '100%', padding: '10px' }}
                 required
               />
-              <p>You can edit your transcript here. If your mobile browser doesn’t support this feature, try using your keyboard’s microphone input instead — it usually works much better 🎤</p>
+              <p>You can edit your transcript here. If your mobile browser doesn't support this feature, try using your keyboard's microphone input instead — it usually works much better 🎤</p>
             </label>
           </>
         )}
